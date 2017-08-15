@@ -51,10 +51,10 @@ for section in sections:
             subsection = i['subsection']
             sub_section_id = _return_field_details(conn,subsection,'subsections')
 
-            cur.execute("INSERT INTO article_details Values ('title','url','update_date','section_id','sub_section_id') RETURNING 'article_id'",
+            cur.execute("INSERT INTO article_details('title','url','update_date','section_id','sub_section_id') Values(%s,%s,%s,%s,%s)  RETURNING 'article_id'",
                 (title,url, update_date,section_id, sub_section_id))
         else:
-            cur.execute("INSERT INTO article_details Values ('title','url','update_date','section_id') RETURNING 'article_id'",
+            cur.execute("INSERT INTO article_details('title','url','update_date','section_id')Values (%s,%s,%s,%s) RETURNING 'article_id'",
                 (title,url, update_date,section_id))
 
         article_id = cur.fetchone()[0]
@@ -74,9 +74,9 @@ for section in sections:
                         per = per.split(',')
                         name = per[1].split()[0]+' '+per[0]
                         facet_details_id = _return_field_details(conn,name,'facet_details')
-                        cur.execute("INSERT INTO article_facet_details Values ('article_id','facet_id','facet_detail_id')",(article_id,facet_type_id,facet_details_id))
+                        cur.execute("INSERT INTO article_facet_details('article_id','facet_id','facet_detail_id') Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id))
                 else:
                     for facet in i[j]:
                         facet_details_id = _return_field_details(conn,facet,'facet_details')
-                        cur.execute("INSERT INTO article_facet_details Values ('article_id','facet_id','facet_detail_id')",(article_id,facet_type_id,facet_details_id))
+                        cur.execute("INSERT INTO article_facet_details('article_id','facet_id','facet_detail_id') Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id))
         conn.commit()
