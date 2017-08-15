@@ -5,7 +5,7 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 def _cleanSections(SectionString):
     SectionString = SectionString.replace(" " ,"")
     SectionString = SectionString.split(',')
-    SectionString = ["'"+i+"'" for i in Sections]
+    SectionString = ["'"+i+"'" for i in SectionString]
     return ",".join(SectionString)
 
 # Connect to the database
