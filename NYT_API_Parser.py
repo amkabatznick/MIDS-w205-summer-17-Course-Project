@@ -19,9 +19,10 @@ def _return_field_details(conn, Value,Table):
                     }
 
     cur = conn.cursor()
+    print(Table,TableMapping[Table]['CheckColumn'],Value)
     cur.execute("SELECT id from %s WHERE %s=%s", (Table,TableMapping[Table]['CheckColumn'],Value))
     if not cur.rowcount:
-        cur.execute("INSERT INTO %s Values (%s) RETURNING %s" (Table, Value,TableMapping[Table]['id']))
+        cur.execute("INSERT INTO %s Values (%s) RETURNING %s", (Table, Value,TableMapping[Table]['id']))
         conn.commit()
 
 
