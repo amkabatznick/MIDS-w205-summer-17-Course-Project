@@ -25,7 +25,6 @@ def _return_field_details(conn, Value,Table):
                     }
 
     cur = conn.cursor()
-    print(Table,TableMapping[Table]['CheckColumn'],Value)
     cur.execute(TableMapping[Table]['GetSql'], (TableMapping[Table]['id'],TableMapping[Table]['CheckColumn'],Value))
     if not cur.rowcount:
         cur.execute(TableMapping[Table]['InsertSql'], (Value,TableMapping[Table]['id']))
@@ -56,7 +55,7 @@ for section in sections:
         if i['subsection']:
             subsection = i['subsection']
             sub_section_id = _return_field_details(conn,subsection,'subsections')
-
+            print(sub_section_id)
             cur.execute("INSERT INTO article_details (title,url,update_date,section_id,sub_section_id) Values(%s,%s,%s,%s,%s)  RETURNING 'article_id'",
                 (title,url, update_date,section_id, sub_section_id))
         else:
