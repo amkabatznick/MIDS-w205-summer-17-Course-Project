@@ -68,14 +68,10 @@ for section in sections:
                         per = per.split(',')
                         name = per[1].split()[0]+' '+per[0]
                         facet_details_id = _return_field_details(conn,name,'facet_details')
-                        cur.execute("INSERT INTO article_facet_details Values
-                            ('article_id','facet_id','facet_detail_id')",
-                            (article_id,facet_type_id,facet_details_id))
+                        cur.execute("INSERT INTO article_facet_details Values ('article_id','facet_id','facet_detail_id')",(article_id,facet_type_id,facet_details_id))
                 else:
                     for facet in i[j]:
                         facet_details_id = _return_field_details(conn,facet,'facet_details')
-                        cur.execute("INSERT INTO article_facet_details Values
-                        ('article_id','facet_id','facet_detail_id')",
-                        (article_id,facet_type_id,facet_details_id))
+                        cur.execute("INSERT INTO article_facet_details Values ('article_id','facet_id','facet_detail_id')",(article_id,facet_type_id,facet_details_id))
 
             conn.commit()
