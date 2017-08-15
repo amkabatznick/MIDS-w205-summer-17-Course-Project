@@ -35,11 +35,12 @@ cur.execute('''CREATE TABLE facet_types
 
 cur.execute('''CREATE TABLE article_details
        (article_id SERIAL PRIMARY KEY  NOT NULL,
-       title text PRIMARY KEY NOT NULL,
-       url text,
+       title text NOT NULL,
+       url text not null,
        update_date timestamp,
        section_id int REFERENCES sections(section_id),
-       sub_section_id int REFERENCES subsections(sub_section_id)
+       sub_section_id int REFERENCES subsections(sub_section_id),
+       UNIQUE(title)
        );''')
 
 cur.execute('''CREATE TABLE facet_details
