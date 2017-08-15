@@ -1,6 +1,15 @@
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
+#Private Function for Use Later On
+def _cleanSections(SectionString):
+    SectionString = Sections.replace(' ','')
+    SectionString = SectionString.split(',')
+    SectionString = SectionString.replace(" " ,"")
+    SectionString = SectionString.split(',')
+    SectionString = ["'"+i+"'" for i in Sections]
+    return ",".join(SectionString)
+
 # Connect to the database
 conn = psycopg2.connect(database="postgres", user="postgres", password="pass", host="localhost", port="5432")
 
@@ -62,6 +71,7 @@ conn.commit()
 
 #This Data can be found here https://developer.nytimes.com/top_stories_v2.json#/README.
 #This Data does not currently update dynamically, so for now the list will need to be copied over
+#Consider making more dynamic via Beautiful Soup
 Sections = 'home, arts, automobiles, books, business, fashion, food, health, insider, magazine, movies, national, nyregion, obituaries, opinion, politics, realestate, science, sports, sundayreview, technology, theater, tmagazine, travel, upshot, world'
 SectionString = _cleanSections(Sections)
 
@@ -69,12 +79,3 @@ cur.execute("Insert into sections (section_name) Values (%s)", (SectionString,) 
 conn.commit()
 
 conn.close()
-
-
-def _cleanSections(SectionString):
-    SectionString = Sections.replace(' ','')
-    SectionString = SectionString.split(',')
-    SectionString = SectionString.replace(" " ,"")
-    SectionString = SectionString.split(',')
-    SectionString = ["'"+i+"'" for i in Sections]
-    return ",".join(SectionString)
