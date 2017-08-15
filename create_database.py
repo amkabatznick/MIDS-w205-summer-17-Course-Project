@@ -61,7 +61,8 @@ cur.execute('''CREATE TABLE article_facet_details
             id Serial PRIMARY KEY Not NUll,
             article_id int REFERENCES article_details(article_id),
             facet_id int REFERENCES facet_types (facet_id),
-            facet_detail_id int REFERENCES facet_details(facet_detail_id)
+            facet_detail_id int REFERENCES facet_details(facet_detail_id),
+            unique(article_id,facet_id,facet_detail_id)
        );''')
 
 
