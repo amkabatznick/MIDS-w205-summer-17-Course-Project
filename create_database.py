@@ -5,8 +5,9 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 def _cleanSections(SectionString):
     SectionString = SectionString.replace(" " ,"")
     SectionString = SectionString.split(',')
-    SectionString = ["'("+i+")'" for i in SectionString]
-    return ",".join(SectionString)
+    #SectionString = ["'"+i+"'" for i in SectionString]
+    #return ",".join(SectionString)
+    return SectionString
 
 # Connect to the database
 conn = psycopg2.connect(database="postgres", user="postgres", password="pass", host="localhost", port="5432")
@@ -73,7 +74,7 @@ conn.commit()
 Sections = 'home, arts, automobiles, books, business, fashion, food, health, insider, magazine, movies, national, nyregion, obituaries, opinion, politics, realestate, science, sports, sundayreview, technology, theater, tmagazine, travel, upshot, world'
 SectionString = _cleanSections(Sections)
 
-cur.execute("Insert into sections (section_name) Values %s", (SectionString,) )
+cur.executemany("Insert into sections (section_name) Values %s;", (SectionString,) )
 conn.commit()
 
 conn.close()
