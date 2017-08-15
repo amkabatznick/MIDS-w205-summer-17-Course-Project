@@ -10,14 +10,14 @@ try:
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     cur = conn.cursor()
     #Drop the database if it already exists
-    cur.execute("DROP DATABASE IF EXISTS NYT")
-    cur.execute("CREATE DATABASE NYT")
+    cur.execute("DROP DATABASE IF EXISTS nyt")
+    cur.execute("CREATE DATABASE nyt")
     cur.close()
     conn.close()
 except:
-    print "Could not create NYT"
+    print "Could not create nyt"
 
-conn = psycopg2.connect(database="NYT", user="postgres", password="pass", host="localhost", port="5432")
+conn = psycopg2.connect(database="nyt", user="postgres", password="pass", host="localhost", port="5432")
 cur = conn.cursor()
 cur.execute('''CREATE TABLE sections
        (section_id SERIAL PRIMARY KEY NOT NULL,
