@@ -18,7 +18,7 @@ def _return_field_details(conn, Value,Table):
                                 },
                     'facet_details':{
                                     'id':'facet_detail_id',
-                                    'CheckColumn': 'facet_details':
+                                    'CheckColumn': 'facet_details',
                                     'GetSql':"SELECT id from facet_details WHERE %s=%s",
                                     'InsertSql':"INSERT INTO facet_details Values (%s) RETURNING %s"
                                 }
