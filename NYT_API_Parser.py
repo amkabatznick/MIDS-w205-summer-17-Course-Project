@@ -47,12 +47,16 @@ for section in sections:
         url = i['url']
         title = i['title']
         update_date = i['updated_date'][0:10]+' '+ i['updated_date'][11:19]
-        section_id
-        subsection = i['subsection']
-        sub_section_id = _return_field_details(conn,subsection,'facet_details')
+        if i['subsection']:
+            subsection = i['subsection']
+            sub_section_id = _return_field_details(conn,subsection,'subsections')
 
-        cur.execute("INSERT INTO article_details Values ('title','url','update_date','section_id','sub_section_id') RETURNING 'article_id'",
-            (title,url, update_date,section_id, sub_section_id))
+            cur.execute("INSERT INTO article_details Values ('title','url','update_date','section_id','sub_section_id') RETURNING 'article_id'",
+                (title,url, update_date,section_id, sub_section_id))
+        else:
+            cur.execute("INSERT INTO article_details Values ('title','url','update_date','section_id') RETURNING 'article_id'",
+                (title,url, update_date,section_id))
+
         article_id = cur.fetchone()[0]
 
         for j in i.keys():
