@@ -38,7 +38,7 @@ cur.execute('''CREATE TABLE article_details
        title text PRIMARY KEY NOT NULL,
        url text,
        update_date timestamp,
-       section_id int REFERENCES sections(section_id)
+       section_id int REFERENCES sections(section_id),
        sub_section_id int REFERENCES subsections(sub_section_id)
        );''')
 
