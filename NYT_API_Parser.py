@@ -6,23 +6,29 @@ def _return_field_details(conn, Value,Table):
     TableMapping = {
                     'subsections':{
                                     'id':'sub_section_id',
-                                    'CheckColumn': 'sub_section_name'
+                                    'CheckColumn': 'sub_section_name',
+                                    'GetSql':"SELECT id from subsections WHERE %s=%s",
+                                    'InsertSql':"INSERT INTO subsections Values (%s) RETURNING %s"
                                 },
                     'facet_types':{
                                     'id':'facet_id',
-                                    'CheckColumn': 'facet_name'
+                                    'CheckColumn': 'facet_name',
+                                    'GetSql':"SELECT id from facet_types WHERE %s=%s",
+                                    'InsertSql':"INSERT INTO facet_types Values (%s) RETURNING %s"
                                 },
                     'facet_details':{
                                     'id':'facet_detail_id',
-                                    'CheckColumn': 'facet_details'
+                                    'CheckColumn': 'facet_details':
+                                    'GetSql':"SELECT id from facet_details WHERE %s=%s",
+                                    'InsertSql':"INSERT INTO facet_details Values (%s) RETURNING %s"
                                 }
                     }
 
     cur = conn.cursor()
     print(Table,TableMapping[Table]['CheckColumn'],Value)
-    cur.execute("SELECT id from %s WHERE %s=%s", (Table,TableMapping[Table]['CheckColumn'],Value))
+    cur.execute(TableMapping[Table]['GetSql'], (TableMapping[Table]['CheckColumn'],Value))
     if not cur.rowcount:
-        cur.execute("INSERT INTO %s Values (%s) RETURNING %s", (Table, Value,TableMapping[Table]['id']))
+        cur.execute(TableMapping[Table]['InsertSql'], (Value,TableMapping[Table]['id']))
         conn.commit()
 
 
