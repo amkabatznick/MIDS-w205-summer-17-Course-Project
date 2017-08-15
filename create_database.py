@@ -74,7 +74,8 @@ conn.commit()
 Sections = 'home, arts, automobiles, books, business, fashion, food, health, insider, magazine, movies, national, nyregion, obituaries, opinion, politics, realestate, science, sports, sundayreview, technology, theater, tmagazine, travel, upshot, world'
 SectionString = _cleanSections(Sections)
 
-cur.execute("Insert into sections (section_name) Values (%s);", SectionString )
+for d in SectionString:
+    cur.execute("Insert into sections (section_name) Values (%s);", (d,) )
 
 conn.commit()
 
