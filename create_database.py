@@ -3,8 +3,6 @@ from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 #Private Function for Use Later On
 def _cleanSections(SectionString):
-    SectionString = Sections.replace(' ','')
-    SectionString = SectionString.split(',')
     SectionString = SectionString.replace(" " ,"")
     SectionString = SectionString.split(',')
     SectionString = ["'"+i+"'" for i in Sections]
