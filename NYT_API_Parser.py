@@ -8,19 +8,19 @@ def _return_field_details(conn, Value,Table):
                                     'id':'sub_section_id',
                                     'CheckColumn': 'sub_section_name',
                                     'GetSql':"SELECT %s from subsections WHERE %s=%s",
-                                    'InsertSql':"INSERT INTO subsections Values (%s) RETURNING %s"
+                                    'InsertSql':"INSERT INTO subsections (sub_section_name) Values (%s) RETURNING %s"
                                 },
                     'facet_types':{
                                     'id':'facet_id',
                                     'CheckColumn': 'facet_name',
                                     'GetSql':"SELECT %s from facet_types WHERE %s=%s",
-                                    'InsertSql':"INSERT INTO facet_types Values (%s) RETURNING %s"
+                                    'InsertSql':"INSERT INTO facet_types (facet_name) Values (%s) RETURNING %s"
                                 },
                     'facet_details':{
                                     'id':'facet_detail_id',
                                     'CheckColumn': 'facet_details',
                                     'GetSql':"SELECT %s from facet_details WHERE %s=%s",
-                                    'InsertSql':"INSERT INTO facet_details Values (%s) RETURNING %s"
+                                    'InsertSql':"INSERT INTO facet_details (facet_details) Values (%s) RETURNING %s"
                                 }
                     }
 
