@@ -74,6 +74,6 @@ def _cleanSections(SectionString):
     SectionString = Sections.replace(' ','')
     SectionString = SectionString.split(',')
     SectionString = SectionString.replace(" " ,"")
-    SectionString = SectionString..split(',')
+    SectionString = SectionString.split(',')
     SectionString = ["'"+i+"'" for i in Sections]
     return ",".join(SectionString)
