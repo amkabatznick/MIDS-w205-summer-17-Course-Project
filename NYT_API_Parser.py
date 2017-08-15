@@ -30,7 +30,7 @@ def _return_field_details(conn, Value,Table):
 
 
 #Establishes Database Connection
-conn = psycopg2.connect(database="nyt", user="postgres", password="pass", host="localhost", port="5432")v
+conn = psycopg2.connect(database="nyt", user="postgres", password="pass", host="localhost", port="5432")
 
 #Gets News Paper Data for All Sections
 cur = conn.cursor()
