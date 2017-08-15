@@ -63,7 +63,8 @@ for section in sections:
           #Check if this is a facet
           if 'facet' in j:
               #Get this FacetId
-              facet_type_id = _return_field_details(conn, j,'facet_types')
+              facet_name = j
+              facet_type_id = _return_field_details(conn, facet_name,'facet_types')
 
               #See if this facet has information
               if i[j]:
