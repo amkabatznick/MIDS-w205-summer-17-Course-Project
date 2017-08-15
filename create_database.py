@@ -56,8 +56,6 @@ cur.execute('''CREATE TABLE article
        );''')
 
 
-       sub_section_id int REFERENCES subsection(sub_section_id),
-       section_id int REFERENCES sections(section_id)
 
 conn.commit()
 
