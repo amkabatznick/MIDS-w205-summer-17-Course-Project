@@ -23,10 +23,9 @@ cur.execute('''CREATE TABLE sections
        (section_id SERIAL PRIMARY KEY NOT NULL,
        section_name text NOT NULL);''')
 
-cur.execute('''CREATE TABLE subsection
+cur.execute('''CREATE TABLE subsections
        (sub_section_id SERIAL PRIMARY KEY NOT NULL,
-       sub_section_name text NOT NULL,
-       section_id int REFERENCES sections(section_id)
+       sub_section_name text NOT NULL
        );''')
 
 cur.execute('''CREATE TABLE facet_types
@@ -39,15 +38,26 @@ cur.execute('''CREATE TABLE article_details
        title text PRIMARY KEY NOT NULL,
        url text,
        update_date timestamp,
-       sub_section_id int REFERENCES subsection(sub_section_id),
        section_id int REFERENCES sections(section_id)
+       sub_section_id int REFERENCES subsections(sub_section_id)
        );''')
 
 cur.execute('''CREATE TABLE facet_details
        (facet_detail_id SERIAL PRIMARY KEY NOT NULL,
-       facet_details text NOT NULL,
-       article_id REFERENCES  article_details(article_id)
+       facet_details text NOT NULL
        );''')
+
+cur.execute('''CREATE TABLE article
+       (
+            id Serial PRIMARY KEY Not NUll,
+            article_id int REFERENCES article_details(article_id),
+            facet_id int REFERENCES facet_types (facet_id),
+            facet_detail_id int REFERENCES facet_details(facet_detail_id)
+       );''')
+
+
+       sub_section_id int REFERENCES subsection(sub_section_id),
+       section_id int REFERENCES sections(section_id)
 
 conn.commit()
 
