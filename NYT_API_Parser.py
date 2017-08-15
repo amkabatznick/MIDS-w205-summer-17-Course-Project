@@ -66,7 +66,7 @@ for section in sections:
                 if j == 'per_facet':
                     for per in i['per_facet']:
                         per = per.split(',')
-                        name = per[1].split()[0]+' '+per[0]ur
+                        name = per[1].split()[0]+' '+per[0]
                         facet_details_id = _return_field_details(conn,name,'facet_details'))
                         cur.execute("INSERT INTO article_facet_details Values
                             ('article_id','facet_id','facet_detail_id')",
