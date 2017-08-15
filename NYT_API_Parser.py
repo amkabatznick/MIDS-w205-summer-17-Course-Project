@@ -63,6 +63,7 @@ for section in sections:
 
               #See if this facet has information
               if i[j]:
+                print(i[j])
                 #If its a person update this information
                 if j == 'per_facet':
                     for per in i['per_facet']:
