@@ -56,7 +56,7 @@ cur.execute('''CREATE TABLE facet_details
        facet_details text NOT NULL
        );''')
 
-cur.execute('''CREATE TABLE article
+cur.execute('''CREATE TABLE article_facet_details
        (
             id Serial PRIMARY KEY Not NUll,
             article_id int REFERENCES article_details(article_id),
