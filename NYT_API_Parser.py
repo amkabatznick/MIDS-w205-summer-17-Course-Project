@@ -30,7 +30,7 @@ def _return_field_details(conn, Value,Table):
             print(cur.query)
             print(cur.rowcount)
         cur.execute(TableMapping[Table]['InsertSql'], (Value,))
-        conn.comit()
+        conn.commit()
 
     var = cur.fetchone()[0]
     return var
