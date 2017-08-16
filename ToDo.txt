@@ -1,4 +1,4 @@
 1. Create .gitigore file
 2. Add .pyc files to .gitignore
-3. Set Up AMI and Shared Volume @Andrew
 4. Finish NYT parser @Andrew
+5. Add Checks for existing Data in Article Databases
