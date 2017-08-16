@@ -59,7 +59,7 @@ for section in sections:
                 subsection = i['subsection']
                 sub_section_id = _return_field_details(conn,subsection,'subsections')
 
-                cur.execute("INSERT INTO article_details (title,url,update_date,section_id,sub_section_id) Values(%s,%s,%s,%s,%s) ON CONFLICT UPDATE RETURNING article_id",
+                cur.execute("INSERT INTO article_details (title,url,update_date,section_id,sub_section_id) Values(%s,%s,%s,%s,%s) RETURNING article_id",
                     (title,url, update_date,section_id, sub_section_id))
             else:
                 cur.execute("INSERT INTO article_details (title,url,update_date,section_id) Values (%s,%s,%s,%s) RETURNING article_id",
