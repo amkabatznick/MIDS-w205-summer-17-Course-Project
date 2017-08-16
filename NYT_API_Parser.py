@@ -29,7 +29,6 @@ def _return_field_details(conn, Value,Table):
     if Table == 'facet_details':
         print(cur.query)
         print(cur.rowcount)
-        print(cur.fetchone()[0])
     if not cur.rowcount:
         cur.execute(TableMapping[Table]['InsertSql'], (Value,))
 
@@ -41,7 +40,8 @@ def _return_field_details(conn, Value,Table):
 
 #Establishes Database Connection
 conn = psycopg2.connect(database="nyt", user="postgres", password="pass", host="localhost", port="5432")
-conn.autocommit = True
+conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+#conn.autocommit = True
 
 #Gets News Paper Data for All Sections
 cur = conn.cursor()
