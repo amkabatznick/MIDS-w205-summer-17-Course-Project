@@ -55,7 +55,6 @@ for section in sections:
         if i['subsection']:
             subsection = i['subsection']
             sub_section_id = _return_field_details(conn,subsection,'subsections')
-            print(sub_section_id)
 
             cur.execute("INSERT INTO article_details (title,url,update_date,section_id,sub_section_id) Values(%s,%s,%s,%s,%s)  RETURNING article_id",
                 (title,url, update_date,section_id, sub_section_id))
@@ -74,12 +73,14 @@ for section in sections:
 
               #See if this facet has information
               if i[j]:
-                print(i[j])
                 #If its a person update this information
                 if j == 'per_facet':
                     for per in i['per_facet']:
                         per = per.split(',')
-                        name = per[1].split()[0]+' '+per[0]
+                        if len(per) > 1:
+                            name = per[1].split()[0]+' '+per[0]
+                        else:
+                            name = per
                         facet_details_id = _return_field_details(conn,name,'facet_details')
                         cur.execute("INSERT INTO article_facet_details (article_id,facet_id,facet_detail_id) Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id))
                 else:
