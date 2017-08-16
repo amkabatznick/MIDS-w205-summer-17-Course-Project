@@ -84,7 +84,10 @@ for section in sections:
                             else:
                                 name = per[0]
                             facet_details_id = _return_field_details(conn,name,'facet_details')
-                            cur.execute("INSERT INTO article_facet_details (article_id,facet_id,facet_detail_id) Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id,))
+                            cur.execute("SELECT id from rticle_facet_details where article_id=%s and facet_id=%s and facet_detail_id=%s", (article_id,facet_type_id,facet_details_id,)
+                            if
+                            else:
+                                cur.execute("INSERT INTO article_facet_details (article_id,facet_id,facet_detail_id) Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id,))
                     else:
                         for facet in set(i[j]):
                             facet_details_id = _return_field_details(conn,facet,'facet_details')
