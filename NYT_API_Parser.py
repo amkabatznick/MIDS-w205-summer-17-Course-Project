@@ -25,14 +25,12 @@ def _return_field_details(conn, Value,Table):
                                 }
                     }
 
-    cur = conn.cursor()
     cur.execute(TableMapping[Table]['GetSql'], (TableMapping[Table]['id'],TableMapping[Table]['CheckColumn'],Value))
     if Table == 'facet_details':
         print(cur.query)
         print(cur.rowcount)
     if not cur.rowcount:
         cur.execute(TableMapping[Table]['InsertSql'], (Value,))
-
 
 
     return cur.fetchone()[0]
