@@ -77,18 +77,16 @@ for section in sections:
                   if i[j]:
                     #If its a person update this information
                     if j == 'per_facet':
-                        for per in i['per_facet']:
+                        for per in set(i['per_facet']):
                             per = per.split(',')
                             if len(per) > 1:
                                 name = per[1].split()[0]+' '+per[0]
                             else:
                                 name = per[0]
                             facet_details_id = _return_field_details(conn,name,'facet_details')
-                            print(article_id,facet_type_id,facet_details_id)
                             cur.execute("INSERT INTO article_facet_details (article_id,facet_id,facet_detail_id) Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id,))
                     else:
-                        for facet in i[j]:
+                        for facet in set(i[j]):
                             facet_details_id = _return_field_details(conn,facet,'facet_details')
-                            print(article_id,facet_type_id,facet_details_id)
                             cur.execute("INSERT INTO article_facet_details (article_id,facet_id, facet_detail_id) Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id,))
             #conn.commit()
