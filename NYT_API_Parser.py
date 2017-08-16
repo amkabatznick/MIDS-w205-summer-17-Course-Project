@@ -31,7 +31,7 @@ def _return_field_details(conn, Value,Table):
         print(cur.rowcount)
     if not cur.rowcount:
         cur.execute(TableMapping[Table]['InsertSql'], (Value,))
-        conn.commit()
+
 
 
     return cur.fetchone()[0]
@@ -40,6 +40,7 @@ def _return_field_details(conn, Value,Table):
 
 #Establishes Database Connection
 conn = psycopg2.connect(database="nyt", user="postgres", password="pass", host="localhost", port="5432")
+conn.autocommit = True
 
 #Gets News Paper Data for All Sections
 cur = conn.cursor()
@@ -90,4 +91,4 @@ for section in sections:
                     for facet in i[j]:
                         facet_details_id = _return_field_details(conn,facet,'facet_details')
                         cur.execute("INSERT INTO article_facet_details (article_id,facet_id, facet_detail_id) Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id))
-        conn.commit()
+        #conn.commit()
