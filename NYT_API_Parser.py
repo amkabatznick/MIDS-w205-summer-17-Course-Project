@@ -32,8 +32,9 @@ def _return_field_details(conn, Value,Table):
     if not cur.rowcount:
         cur.execute(TableMapping[Table]['InsertSql'], (Value,))
 
-
-    return cur.fetchone()[0]
+    var = cur.fetchone()[0]
+    cur.close()
+    return var
 
 
 
@@ -46,6 +47,7 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cur = conn.cursor()
 cur.execute("SELECT section_id, section_name from sections order by section_id")
 sections = cur.fetchall()
+cur.close()
 
 for section in sections:
     section_id = section[0]
@@ -56,6 +58,7 @@ for section in sections:
         url = i['url']
         title = i['title']
         update_date = i['updated_date'][0:10]+' '+ i['updated_date'][11:19]
+        cur = conn.cursor()
         if i['subsection']:
             subsection = i['subsection']
             sub_section_id = _return_field_details(conn,subsection,'subsections')
@@ -67,7 +70,7 @@ for section in sections:
                 (title,url, update_date,section_id))
 
         article_id = cur.fetchone()[0]
-
+        cur.close()
         for j in i.keys():
           #Check if this is a facet
           if 'facet' in j:
@@ -77,6 +80,7 @@ for section in sections:
 
               #See if this facet has information
               if i[j]:
+                cur = conn.cursor()
                 #If its a person update this information
                 if j == 'per_facet':
                     for per in i['per_facet']:
@@ -91,4 +95,5 @@ for section in sections:
                     for facet in i[j]:
                         facet_details_id = _return_field_details(conn,facet,'facet_details')
                         cur.execute("INSERT INTO article_facet_details (article_id,facet_id, facet_detail_id) Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id))
+                cur.close()
         #conn.commit()
