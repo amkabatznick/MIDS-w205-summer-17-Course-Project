@@ -24,7 +24,7 @@ def _return_field_details(conn, Value,Table):
                                     'InsertSql':"INSERT INTO facet_details (facet_details) Values (%s) RETURNING facet_detail_id"
                                 }
                     }
-
+    cur = conn.cursor()            
     cur.execute(TableMapping[Table]['GetSql'], (TableMapping[Table]['id'],TableMapping[Table]['CheckColumn'],Value))
     if Table == 'facet_details':
         print(cur.query)
