@@ -45,7 +45,6 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cur = conn.cursor()
 cur.execute("SELECT section_id, section_name from sections order by section_id")
 sections = cur.fetchall()
-cur.close()
 
 for section in sections:
     section_id = section[0]
