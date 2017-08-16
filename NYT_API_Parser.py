@@ -8,26 +8,25 @@ def _return_field_details(conn, Value,Table):
                                     'id':'sub_section_id',
                                     'CheckColumn': 'sub_section_name',
                                     'GetSql':"SELECT %s from subsections WHERE %s=%s",
-                                    'InsertSql':"INSERT INTO subsections (sub_section_name) Values (%s) RETURNING %s"
+                                    'InsertSql':"INSERT INTO subsections (sub_section_name) Values (%s) RETURNING sub_section_id"
                                 },
                     'facet_types':{
                                     'id':'facet_id',
                                     'CheckColumn': 'facet_name',
                                     'GetSql':"SELECT %s from facet_types WHERE %s=%s",
-                                    'InsertSql':"INSERT INTO facet_types (facet_name) Values (%s) RETURNING %s"
+                                    'InsertSql':"INSERT INTO facet_types (facet_name) Values (%s) RETURNING facet_id"
                                 },
                     'facet_details':{
                                     'id':'facet_detail_id',
                                     'CheckColumn': 'facet_details',
                                     'GetSql':"SELECT %s from facet_details WHERE %s=%s",
-                                    'InsertSql':"INSERT INTO facet_details (facet_details) Values (%s) RETURNING %s"
+                                    'InsertSql':"INSERT INTO facet_details (facet_details) Values (%s) RETURNING facet_detail_id"
                                 }
                     }
 
     cur = conn.cursor()
     cur.execute(TableMapping[Table]['GetSql'], (TableMapping[Table]['id'],TableMapping[Table]['CheckColumn'],Value))
     if not cur.rowcount:
-        print(TableMapping[Table]['InsertSql'])
         cur.execute(TableMapping[Table]['InsertSql'], (Value,TableMapping[Table]['id']))
         if Table == 'subsections':
             print(cur.query)
@@ -60,10 +59,10 @@ for section in sections:
             sub_section_id = _return_field_details(conn,subsection,'subsections')
             print(sub_section_id)
 
-            cur.execute("INSERT INTO article_details (title,url,update_date,section_id,sub_section_id) Values(%s,%s,%s,%s,%s)  RETURNING 'article_id'",
+            cur.execute("INSERT INTO article_details (title,url,update_date,section_id,sub_section_id) Values(%s,%s,%s,%s,%s)  RETURNING article_id",
                 (title,url, update_date,section_id, sub_section_id))
         else:
-            cur.execute("INSERT INTO article_details (title,url,update_date,section_id) Values (%s,%s,%s,%s) RETURNING 'article_id'",
+            cur.execute("INSERT INTO article_details (title,url,update_date,section_id) Values (%s,%s,%s,%s) RETURNING article_id",
                 (title,url, update_date,section_id))
 
         article_id = cur.fetchone()[0]
