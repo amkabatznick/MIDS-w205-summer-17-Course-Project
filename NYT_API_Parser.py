@@ -27,9 +27,7 @@ def _return_field_details(conn, Value,Table):
     cur = conn.cursor()
     cur.execute(TableMapping[Table]['GetSql'], (TableMapping[Table]['id'],TableMapping[Table]['CheckColumn'],Value))
     if not cur.rowcount:
-        cur.execute(TableMapping[Table]['InsertSql'], (Value,TableMapping[Table]['id']))
-        if Table == 'subsections':
-            print(cur.query)
+        cur.execute(TableMapping[Table]['InsertSql'], (Value,))
         conn.commit()
 
 
