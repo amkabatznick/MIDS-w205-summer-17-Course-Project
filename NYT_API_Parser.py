@@ -1,6 +1,7 @@
 from NytCredentials import NYTimesApi
 import requests
 import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 def _return_field_details(conn, Value,Table):
     TableMapping = {
