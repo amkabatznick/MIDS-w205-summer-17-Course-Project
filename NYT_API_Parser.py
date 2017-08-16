@@ -29,6 +29,7 @@ def _return_field_details(conn, Value,Table):
     if Table == 'facet_details':
         print(cur.query)
         print(cur.rowcount)
+        print(cur.fetchone()[0])
     if not cur.rowcount:
         cur.execute(TableMapping[Table]['InsertSql'], (Value,))
 
