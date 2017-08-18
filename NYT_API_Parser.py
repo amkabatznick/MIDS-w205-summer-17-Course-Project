@@ -43,8 +43,9 @@ conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 cur = conn.cursor()
 cur.execute("SELECT section_id, section_name from sections order by section_id")
 sections = cur.fetchall()
-
+print('Starting Parsing')
 for section in sections:
+    print("Parsing Section %s" %Section)
     section_id = section[0]
     section_name = section[1]
     r= requests.get('http://api.nytimes.com/svc/topstories/v2/%s.json?api-key=%s' %(section_name,NYTimesApi)).json()
@@ -93,3 +94,5 @@ for section in sections:
                             cur.execute("SELECT id from article_facet_details where article_id=%s and facet_id=%s and facet_detail_id=%s", (article_id,facet_type_id,facet_details_id,))
                             if not cur.rowcount:
                                 cur.execute("INSERT INTO article_facet_details (article_id,facet_id,facet_detail_id) Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id,))
+
+print("NYT Parsing Complete")

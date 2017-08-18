@@ -1,4 +1,2 @@
 1. Create .gitigore file
 2. Add .pyc files to .gitignore
-4. Finish NYT parser @Andrew
-5. Add Checks for existing Data in Article Databases
