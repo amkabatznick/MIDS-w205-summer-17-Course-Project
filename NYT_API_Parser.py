@@ -2,6 +2,7 @@ from NytCredentials import NYTimesApi
 import requests
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+import time
 
 def _return_field_details(conn, Value,Table):
     TableMapping = {
@@ -49,8 +50,6 @@ for section in sections:
     section_name = section[1]
     print("Parsing Section %s" %(section_name))
     r= requests.get('http://api.nytimes.com/svc/topstories/v2/%s.json?api-key=%s' %(section_name,NYTimesApi)).json()
-
-    if r['results']:
         for i in r['results']:
             title = i['title']
             cur.execute("SELECT article_id from article_details where title=%s", (title,))
@@ -95,5 +94,5 @@ for section in sections:
                                 cur.execute("SELECT id from article_facet_details where article_id=%s and facet_id=%s and facet_detail_id=%s", (article_id,facet_type_id,facet_details_id,))
                                 if not cur.rowcount:
                                     cur.execute("INSERT INTO article_facet_details (article_id,facet_id,facet_detail_id) Values(%s,%s,%s)",(article_id,facet_type_id,facet_details_id,))
-
+    time.sleep(5)
 print("NYT Parsing Complete")
