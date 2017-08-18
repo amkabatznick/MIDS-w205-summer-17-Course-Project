@@ -1,2 +1,0 @@
-1. Create .gitigore file
-2. Add .pyc files to .gitignore
