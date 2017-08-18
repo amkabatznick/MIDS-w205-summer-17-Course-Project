@@ -45,9 +45,9 @@ cur.execute("SELECT section_id, section_name from sections order by section_id")
 sections = cur.fetchall()
 print('Starting Parsing')
 for section in sections:
-    print("Parsing Section %s" %(section))
     section_id = section[0]
     section_name = section[1]
+    print("Parsing Section %s" %(section_name))
     r= requests.get('http://api.nytimes.com/svc/topstories/v2/%s.json?api-key=%s' %(section_name,NYTimesApi)).json()
 
     for i in r['results']:
