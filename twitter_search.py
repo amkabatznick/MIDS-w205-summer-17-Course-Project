@@ -22,4 +22,4 @@ for tweet in public_tweets:
     print tweet.text
 
 status_list = api.search('charlottesville')
-json.dumps([status._json for status in status_list]]
+json.dumps([status._json for status in status_list])
