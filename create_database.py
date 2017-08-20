@@ -1,5 +1,6 @@
 import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+from sys import exit
 
 #Private Function for Use Later On
 def _cleanSections(SectionString):
@@ -17,11 +18,24 @@ try:
     # CREATE DATABASE can't run inside a transaction
     conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
     cur = conn.cursor()
-    #Drop the database if it already exists
-    cur.execute("DROP DATABASE IF EXISTS nyt")
-    cur.execute("CREATE DATABASE nyt")
-    cur.close()
-    conn.close()
+    cur.execute("SELECT COUNT(*) = 0 FROM pg_catalog.pg_database WHERE datname = 'nyt'")
+    not_exists = not_exists_row[0]
+    if not_exists:
+        cur.execute("CREATE DATABASE nyt")
+        cur.close()
+        conn.close()
+    else:
+        input_text = print('Database Exists\n')
+        input_text = raw_input('Would you like to drop the database and recreate it: y/n? ')input_text = input_text.lower()
+        if input_text == 'y':
+            #Drop the database if it already exists
+            cur.execute("DROP DATABASE IF EXISTS nyt")
+            cur.execute("CREATE DATABASE nyt")
+            cur.close()
+            conn.close()
+        else:
+            print('Keeping Existing Database')
+            exit()
 except:
     print "Could not create nyt"
 
