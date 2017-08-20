@@ -10,7 +10,8 @@ not_exists = not_exists_row[0]
 if not_exists:
     print('Database does not exits')
 else:
-    input_text = raw_input('Database Exists would you like to drop the database and recreate it: y/n? ')
+    input_text = print('Database Exists\n')
+    input_text = raw_input('Would you like to drop the database and recreate it: y/n? ')
     input_text = input_text.lower()
     if input_text == 'y':
         print('Pretending to do something')
