@@ -7,20 +7,14 @@ import time
 def _return_field_details(conn, Value,Table):
     TableMapping = {
                     'subsections':{
-                                    'id':'sub_section_id',
-                                    'CheckColumn': 'sub_section_name',
                                     'GetSql':"SELECT sub_section_id from subsections WHERE sub_section_name=%s",
                                     'InsertSql':"INSERT INTO subsections (sub_section_name) Values (%s) RETURNING sub_section_id"
                                 },
                     'facet_types':{
-                                    'id':'facet_id',
-                                    'CheckColumn': 'facet_name',
                                     'GetSql':"SELECT facet_id from facet_types WHERE facet_name=%s",
                                     'InsertSql':"INSERT INTO facet_types (facet_name) Values (%s) RETURNING facet_id"
                                 },
                     'facet_details':{
-                                    'id':'facet_detail_id',
-                                    'CheckColumn': 'facet_details',
                                     'GetSql':"SELECT facet_detail_id from facet_details WHERE facet_details=%s",
                                     'InsertSql':"INSERT INTO facet_details (facet_details) Values (%s) RETURNING facet_detail_id"
                                 }
