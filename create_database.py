@@ -25,7 +25,7 @@ try:
         cur.close()
         conn.close()
     else:
-        input_text = print('Database Exists\n')
+        print('Database Exists\n')
         input_text = raw_input('Would you like to drop the database and recreate it: y/n? ')input_text = input_text.lower()
         if input_text == 'y':
             #Drop the database if it already exists
