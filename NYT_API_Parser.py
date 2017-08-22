@@ -4,6 +4,8 @@ import psycopg2
 from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 import time
 
+print "nyt test"
+
 def _return_field_details(conn, Value,Table):
     TableMapping = {
                     'subsections':{
