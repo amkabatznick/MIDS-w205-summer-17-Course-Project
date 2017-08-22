@@ -81,7 +81,14 @@ cur.execute('''CREATE TABLE article_facet_details
             facet_id int REFERENCES facet_types (facet_id),
             facet_detail_id int REFERENCES facet_details(facet_detail_id),
             primary key (article_id,facet_id,facet_detail_id)
-       );''')
+       );'''
+)
+cur.execute('''CREATE TABLE tweets
+       (id SERIAL PRIMARY KEY NOT NULL,
+        tweet TEXT NOT NULL,
+        date TIMESTAMP NOT NULL,
+        facet_detail_id INT NOT NULL,
+        user_id BIGINT NOT NULL);''')
 
 
 
