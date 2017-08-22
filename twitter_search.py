@@ -59,8 +59,7 @@ def fuzzy_substring(needle, haystack):
 current_date = datetime.datetime.now()
 two_days_ago = current_date - datetime.timedelta(days = 2)
 #Get two story key words for past two days
-cur.execute("SELECT t3.facet_details FROM article_details AS t1 INNER JOIN article_facet_details AS t2 ON t1.article_id = t2.article_id INNER JOIN facet_details AS t3 ON t2.facet_detail_id = t
-3.facet_detail_id WHERE t1.update_date > %s;",(two_days_ago,))
+cur.execute("SELECT t3.facet_details FROM article_details AS t1 INNER JOIN article_facet_details AS t2 ON t1.article_id = t2.article_id INNER JOIN facet_details AS t3 ON t2.facet_detail_id = t3.facet_detail_id WHERE t1.update_date > %s;",(two_days_ago,))
 past_facet_strings = cur.fetchall()
 for f in past_facet_strings:
     search_string = f[0]
